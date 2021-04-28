@@ -1,33 +1,45 @@
 <template>
-<!--  <div class="home">-->
-<!--    <img alt="Vue logo" src="../assets/logo.png">-->
-<!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
-<!--  </div>-->
-<!--  <div>-->
-<!--    <input v-model="email" placeholder="enter your email">-->
-<!--    <button v-on:click="register()">Register</button>-->
-<!--  </div>-->
+  <!--  <div class="home">-->
+  <!--    <img alt="Vue logo" src="../assets/logo.png">-->
+  <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
+  <!--  </div>-->
+  <!--  <div>-->
+  <!--    <input v-model="email" placeholder="enter your email">-->
+  <!--    <button v-on:click="register()">Register</button>-->
+  <!--  </div>-->
   <div>
     <h1>Korrutustabel</h1>
     <input v-model.number="numA">
     <input v-model.number="numB">
     <button v-on:click="multiply()">Multiply</button>
-    {{multiplyAnswer}}
+    <table border="1">
+      <tr v-for="row in table">
+        <td v-for="column in row">{{ column }}</td>
+      </tr>
+    </table>
   </div>
 </template>
+
 <script>
 
-function multiply() {
-  for (let i = 1; i < this.numA +1; i++) {
-    for (let j = 1; j < this.numB +1; j++) {
-      this.multiplyAnswer = (i * j + "");
-    }
-  }
-}
-
 export default {
-  data: function ()  {
-
+  data: function () {
+    return {
+      "numA": 0,
+      "numB": 0,
+      "table": [[]]
+    }
+  },
+  methods: {
+    "multiply": function () {
+      for (let i = 1; i < this.numA + 1; i++) {
+        this.table[i - 1] = []
+        for (let j = 1; j < this.numB + 1; j++) {
+          this.table[i - 1][j - 1] = i * j;
+        }
+      }
+      this.table.splice()
+    }
   }
 }
 
