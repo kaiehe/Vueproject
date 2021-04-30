@@ -16,6 +16,25 @@
         <td>{{ account.blocked }}</td>
       </tr>
     </table>
+
+    <h1>Tehingute ajalugu</h1>
+
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Account number</th>
+        <th>Deposit</th>
+        <th>Withdraw</th>
+        <th>Balance</th>
+      </tr>
+      <tr v-for="history in history">
+        <td>{{ history.date }}</td>
+        <td>{{ history.accountNumber }}</td>
+        <td>{{ history.deposit }}</td>
+        <td>{{ history.withdraw }}</td>
+        <td>{{ history.balance }}</td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -26,15 +45,23 @@ export default {
     return {
       'accounts': '',
       'accountNumber': '',
-      'client': ''
+      'client': '',
+      'history': '',
+      'date': '',
+      'deposit': '',
+      'withdraw': '',
+      'balance': ''
     }
   },
   methods: {
 
 },
   mounted() {
-    this.$http.get('/api/repobank/accounthistory')
+    this.$http.get('/api/repobank/allaccounts')
     .then(response => this.accounts = response.data)
+
+    this.$http.get('api/repobank/gethistory')
+    .then((response => this.history = response.data))
   }
 }
 </script>
